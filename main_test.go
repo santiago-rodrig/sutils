@@ -44,6 +44,16 @@ func TestRemoveAdjacentDuplicates(t *testing.T) {
 	}
 }
 
+func TestSquashSpaces(t *testing.T) {
+	s := "Hello   there\n\n\tmy friend"
+	want := "Hello there\nmy friend"
+	got := SquashSpaces([]byte(s))
+
+	if string(got) != want {
+		t.Errorf("want %q, got %q", want, string(got))
+	}
+}
+
 func equalStrings(s1, s2 []string) bool {
 	if len(s1) != len(s1) {
 		return false

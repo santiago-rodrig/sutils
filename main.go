@@ -1,6 +1,11 @@
 // Package sutils provides functions for working with slices
 package sutils
 
+import (
+	"unicode"
+	"unicode/utf8"
+)
+
 // ReverseInts reverses the elements of a slice
 func ReverseInts(s []int) {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
@@ -51,4 +56,39 @@ func RemoveAdjacentDuplicates(s []string) []string {
 	}
 
 	return s
+}
+
+// SquashSpaces takes a slice of bytes and squashes runs of spaces
+func SquashSpaces(bs []byte) []byte {
+	i := 0
+
+	for {
+		if i+utf8.RuneLen(rune(bs[i])) == len(bs) {
+			break
+		}
+
+		if !unicode.IsSpace(rune(bs[i])) {
+			i += utf8.RuneLen(rune(bs[i]))
+
+			continue
+		}
+
+		lastSpaceIdx := -1
+
+		for j := i + 1; j < len(bs); j++ {
+			if unicode.IsSpace(rune(bs[j])) {
+				lastSpaceIdx = j
+			} else {
+				break
+			}
+		}
+
+		if lastSpaceIdx != -1 {
+			bs = append(bs[:i+1], bs[lastSpaceIdx+1:]...)
+		}
+
+		i++
+	}
+
+	return bs
 }
