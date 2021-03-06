@@ -92,3 +92,14 @@ func SquashSpaces(bs []byte) []byte {
 
 	return bs
 }
+
+// ReverseUTF8Bytes reverses an UTF-8 encoded string
+func ReverseUTF8Bytes(bs []byte) []byte {
+	rs := []rune(string(bs))
+
+	for i, j := 0, len(rs)-1; i != j; i, j = i+1, j-1 {
+		rs[i], rs[j] = rs[j], rs[i]
+	}
+
+	return []byte(string(rs))
+}

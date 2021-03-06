@@ -54,6 +54,16 @@ func TestSquashSpaces(t *testing.T) {
 	}
 }
 
+func TestReverseUTF8Bytes(t *testing.T) {
+	s := "Hello there"
+	want := "ereht olleH"
+	got := string(ReverseUTF8Bytes([]byte(s)))
+
+	if got != want {
+		t.Errorf("want %v, got %v", want, got)
+	}
+}
+
 func equalStrings(s1, s2 []string) bool {
 	if len(s1) != len(s1) {
 		return false
