@@ -34,6 +34,30 @@ func TestRotateInts(t *testing.T) {
 	})
 }
 
+func TestRemoveAdjacentDuplicates(t *testing.T) {
+	s := []string{"hello", "you", "you", "you", "hey", "hey", "car"}
+	want := []string{"hello", "you", "hey", "car"}
+	s = RemoveAdjacentDuplicates(s)
+
+	if !equalStrings(s, want) {
+		t.Errorf("want %v, got %v", want, s)
+	}
+}
+
+func equalStrings(s1, s2 []string) bool {
+	if len(s1) != len(s1) {
+		return false
+	}
+
+	for i := range s1 {
+		if s1[i] != s2[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
 func equalInts(s1, s2 []int) bool {
 	if len(s1) != len(s1) {
 		return false

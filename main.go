@@ -23,3 +23,32 @@ func RotateInts(s []int, n uint, toRight bool) {
 		ReverseInts(s)
 	}
 }
+
+// RemoveAdjacentDuplicates removes the adjacent duplicates in a slice of strings
+func RemoveAdjacentDuplicates(s []string) []string {
+	i := 0
+
+	for {
+		if i == len(s)-1 {
+			break
+		}
+
+		lastDupIdx := -1
+
+		for j := i + 1; j < len(s); j++ {
+			if s[i] == s[j] {
+				lastDupIdx = j
+			} else {
+				break
+			}
+		}
+
+		if lastDupIdx != -1 {
+			s = append(s[:i+1], s[lastDupIdx+1:]...)
+		}
+
+		i++
+	}
+
+	return s
+}
